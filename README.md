@@ -11,7 +11,7 @@ The only interesting part of coding and designing the program was how to get cli
 <details>
 <summary>How I did it</summary>
 The overarching idea I had to effect both aforementioned goals was to use an algorithm essentially like the fill bucket in a paint program. However (without delving into needless complexity), for that to work, the region in question must have all its pixels of the exact same color value (of which there are nearly 17 million.) Most images you find are not made up of solid colors, even when they appear so: a region that just looks blue is likely a smattered mosaic of dozens of subtly different bluish color values.
-
+ 
 Anyway, I wrote some temporary code just to transform the downloaded Internet map images into something I could use. I ran the maps through an algorithm that set every pixel in the whole image to white, unless it was within a certain range of numeric values near to black, which left me with an image of just the country borders. I took that to a paint program and bucket-filled each country with my own choice of colors, which were now pixel-identical within a given country. I loaded this map onto the screen, held the mouse cursor over each separate country in turn, and typed its name. With more temporary code, this wrote the name and the coordinates for this anchor point into a text file (for broken-up countries like Indonesia, Denmark, and numerous others, I had to create multiple anchor points.) 
 
 With that, when the player clicked anywhere on screen, a "fill bucket" algorithm would start at the click point. If, traveling one by one to neighboring pixels of the exact same color, the algorithm reached a pixel that matched an anchor point recorded in the text file, the program would know that the click had indeed occurred in the bounds of the country associated with that anchor point. The anchor points could also be used to start an actual paint bucket algorithm to change their color to green or red based on whether answered correctly in the quiz.  
@@ -21,8 +21,8 @@ In most of my games all the graphics are created by me, some programmatically an
 
 ### FILE DESCRIPTIONS
 * **sfmlApp:**  Implements `main()` and the abstract app
-* **state:**  Implements primary graphical elements, click detection, game logic
-* **country:**  Small structs representing countries and continents
+* **state:**  Implements primary graphical elements, game logic
+* **country:**  Small structs representing countries and continents (including click detection)
   
 (From my "reusable modules" repo: https://github.com/johnnywz00/SFML-shared-headers)
 * **jwz:**  C++ utility functions, #defines, shortcuts
