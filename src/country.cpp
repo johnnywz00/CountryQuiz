@@ -19,7 +19,7 @@ bool Country::checkContainsClick(int x, int y, ZImage z)
 	int numCols = z.getSize().x;
 	if (!isOrBetween(x, 0, numCols - 1) ||
 		!isOrBetween(y, 0, numRows - 1))
-		return;
+		return false;
 	Color colorToReplace = z.getPixel(startPt);
 	Color c = colorToReplace;
 	c.r = clamp(c.r - 1, 0, 255);
