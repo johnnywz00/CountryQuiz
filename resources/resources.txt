@@ -1,0 +1,18 @@
+@images
+asia.png 		asiaMap
+africa.png 		africaMap
+europe.png 		europeMap
+samerica.png 	samericaMap
+usa.png 		usaMap
+
+#repeated
+#ground.png		ground		repeat
+
+@fonts
+Monaco.ttf			debug
+DSHolzschrift.otf		countryName
+PilsenPlakat.otf		instrucs
+
+@sounds
+magicmallet.mp3		wrongChoice
+tada.mp3			rightChoice

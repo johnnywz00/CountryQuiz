@@ -1,0 +1,15 @@
+colombia 653 161
+venezuela 784 104
+guyana 886 109
+suriname 936 141
+french-guiana 986 148
+ecuador 559 237
+peru 614 366
+brazil 991 379
+bolivia 765 484
+paraguay 876 591
+uruguay 900 759
+argentina 776 760
+argentina 705 1086
+chile 708 658
+chile 689 1089
