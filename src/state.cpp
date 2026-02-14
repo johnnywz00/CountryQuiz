@@ -5,6 +5,17 @@
 
 void State::onCreate ()
 {
+	/* The game was originally only meant to be used by my
+	 * children on my computer: all of the country coordinates
+	 * were hardcoded to my screen size. To run the program on
+	 * other screen sizes, we have to try to convert those
+	 * coordinates to the current size from 1728 x 1117
+	 */
+	xRatio = scrw / 1728.f;
+	yRatio = scrh / 1117.f;
+	vw = View(FloatRect(0,0, 1728, 1117));
+	rwin->setView(vw);
+	
 	/* Only for configuring new maps */
 	newCountryTbox = Textbox(gFont("debug"), {20, 50});
 	mouseTxt = Text("", gFont("debug"), 13);
@@ -13,14 +24,13 @@ void State::onCreate ()
 
 	/* Display name of current country in quiz or learn mode */
 	ctyNameTxt = Text("", gFont("countryName"), 40);
-	ctyNameTxt.setPosition({30, 75});
 	ctyNameTxt.setScale({1.5, 1});
 	ctyNameTxt.setFillColor(countryNameColor);
 	ctyNameTxt.setOutlineThickness(1.5);
 	ctyNameTxt.setOutlineColor(withAlpha(countryNameColor, 100));
 	
 	/* Show continent selection keys */
-	instrucsTxt = Text(instrucsStr, gFont("instrucs"), 20);
+	instrucsTxt = Text(instrucsStr, gFont("instrucs"), 18);
 	instrucsTxt.setPosition({15, 5});
 	instrucsTxt.setFillColor(withAlpha(countryNameColor, 100));
 	
@@ -37,19 +47,11 @@ void State::onCreate ()
 
 	for (auto& clist : continentCfgLists) {
 		continents.emplace_back(clist[0], clist[1], clist[2], clist[3]);
+		if (clist[0] == "usa")
+			continents.back().countryDisplayPos = {xRatio * 780, yRatio * 90};
+		else continents.back().countryDisplayPos = {xRatio * 80, yRatio * 270};
 	}
 	countries.reserve(70);
-	
-	/* The game was originally only meant to be used by my
-	 * children on my computer: all of the country coordinates
-	 * were hardcoded to my screen size. To run the program on
-	 * other screen sizes, we have to try to convert those
-	 * coordinates to the current size from 1728 x 1117
-	 */
-	xRatio = scrw / 1728.f;
-	yRatio = scrh / 1117.f;
-	vw = View(FloatRect(0,0, 1728, 1117));
-	rwin->setView(vw);
 	
 	reset();
 }
@@ -242,6 +244,7 @@ void State::loadContinent (Continent& cont)
 {
 	curMode = learn;
 	ctyNameTxt.setString("");
+	ctyNameTxt.setPosition(cont.countryDisplayPos);
 	curContinent = &cont;
 	curMapTx = gTexture(cont.mapKey);
 	zimg = curMapTx.copyToImage();

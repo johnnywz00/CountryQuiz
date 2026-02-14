@@ -40,6 +40,7 @@ struct Continent
 	string			coordsFile;
 	string			mapKey;
 	string			soundsFolder;
+	vecF			countryDisplayPos;
 	bool			soundsLoaded = false;
 };
 
