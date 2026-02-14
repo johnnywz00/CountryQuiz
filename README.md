@@ -7,7 +7,8 @@
 ### ABOUT THE PROJECT
 This program is one of very few projects which I undertook more for the use of the end product than for the challenge of coding it (I wanted my children to have a geography learning game.)
 
-The only interesting part of coding and designing the program was how to get clicks to know whether they were in bounds of a given country, and relatedly, how to change the colors of those countries dynamically based on the mode or quiz status. This might have been less of a challenge than it was, but I wasn't going to draw maps from scratch in a paint program, so I had to find a solution that utilized map images available on the internet.
+The only interesting part of coding and designing the program was how to get clicks to know whether they were in bounds of a given country, and relatedly, how to change the colors of those countries dynamically based on the mode or quiz status. This might have been less of a challenge than it was (virtually all of my hobby projects are on a don't-look-up-the-answer-till-I've-figured-it-out-myself basis), but I wasn't going to draw maps from scratch in a paint program, so I had to find a solution that utilized map images available on the internet.
+
 <details>
 <summary>How I did it</summary>
 The overarching idea I had to effect both aforementioned goals was to use an algorithm essentially like the fill bucket in a paint program. However (without delving into needless complexity), for that to work, the region in question must have all its pixels of the exact same color value (of which there are nearly 17 million.) Most images you find are not made up of solid colors, even when they appear so: a region that just looks blue is likely a smattered mosaic of dozens of subtly different bluish color values.
