@@ -8,6 +8,8 @@
 
 ## COMING SOON
 
+Unless noted, all the graphics in my programs are created by me, some programmatically and some as pixel art. The majority of sound effects that I use are from the public domain. (Here, the map images were downloaded and then revamped...)
+
 ### FILE DESCRIPTIONS
 * **sfmlApp:**  Implements `main()` and the abstract app
   
