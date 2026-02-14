@@ -39,6 +39,7 @@ public:
 
 	
 	RenderWindow*  		 	rwin;
+	View					vw;
 	FullscreenOnlyApp* 		app;
 	TimedEventManager*      timedMgr;
 	vecI					mouseVec
@@ -101,6 +102,10 @@ private:
 	;
 	Textbox						newCountryTbox;
 	Textbox*					activeTbox = nullptr;
+	
+	float						xRatio
+								, yRatio
+	;
 }; //end class State
 
 #endif
