@@ -55,11 +55,6 @@ private:
 		, { "usa", "usaCoords.txt", "usaMap", "usaSounds" }
 	};
 	
-//	const string instrucsStr =
-//		"Esc = Quit    John Ziegler, 2025   johnnywz00@yahoo.com\n"
-//		"Q = Take quiz!   1 = Asia   2 = Europe   3 = Africa   "
-//		"4 = South America   5 = United States"
-//	;
 	const string instrucsStr =
 		"Esc = Quit          John Ziegler, 2025   johnnywz00@yahoo.com\n"
 		" \nQ = Take quiz!\n1 = Asia\n2 = Europe\n3 = Africa\n"
@@ -107,10 +102,6 @@ private:
 	;
 	Textbox						newCountryTbox;
 	Textbox*					activeTbox = nullptr;
-	
-	float						xRatio
-								, yRatio
-	;
 }; //end class State
 
 #endif

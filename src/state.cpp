@@ -8,11 +8,9 @@ void State::onCreate ()
 	/* The game was originally only meant to be used by my
 	 * children on my computer: all of the country coordinates
 	 * were hardcoded to my screen size. To run the program on
-	 * other screen sizes, we have to try to convert those
+	 * other screen sizes, we have to convert those
 	 * coordinates to the current size from 1728 x 1117
 	 */
-	xRatio = scrw / 1728.f;
-	yRatio = scrh / 1117.f;
 	vw = View(FloatRect(0,0, 1728, 1117));
 	rwin->setView(vw);
 	
@@ -48,8 +46,8 @@ void State::onCreate ()
 	for (auto& clist : continentCfgLists) {
 		continents.emplace_back(clist[0], clist[1], clist[2], clist[3]);
 		if (clist[0] == "usa")
-			continents.back().countryDisplayPos = {xRatio * 780, yRatio * 90};
-		else continents.back().countryDisplayPos = {xRatio * 80, yRatio * 270};
+			continents.back().countryDisplayPos = {780, 90};
+		else continents.back().countryDisplayPos = {80, 270};
 	}
 	countries.reserve(70);
 	
@@ -83,13 +81,6 @@ bool State::handleTextEvent (Event& event)
 
 void State::onMouseDown (int x, int y)
 {
-	/* Adjust the click coordinates based on current
-	 * screen size, since original program expected
-	 * 1728 x 1117 frame of reference
-	 */
-	x = int(float(x) * xRatio);
-	y = int(float(y) * yRatio);
-	
 	/* Learn mode: print and speak name for
 	 * the clicked country
 	 */
