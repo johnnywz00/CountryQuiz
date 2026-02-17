@@ -72,6 +72,10 @@ private:
 	void loadContinent (Continent&);
 	
 	void launchQuiz ();
+	
+	void refreshMapImage ();
+	
+	void formListForQuiz ();
 
 	string fmtForDisplay (string&);
 	
@@ -88,20 +92,25 @@ private:
 	map<string, Sound> 			soundMap;
 
 	Sprite						mapSprite;
-	vector<Continent>			continents;
-	vector<Country>				countries;
-	Mode						curMode;
-	ZImage						zimg;
-	Texture						curMapTx;
-	Continent*					curContinent;
-	vector<string>				curQuizList;
-	int							curQuizListIdx;
 	Text    			 		mouseTxt
 								, ctyNameTxt
 								, instrucsTxt
 	;
 	Textbox						newCountryTbox;
 	Textbox*					activeTbox = nullptr;
+
+	Mode						curMode;
+	vector<Continent>			continents;
+	vector<Country>				countries;
+	Texture						curMapTx;
+	ZImage						zimg;
+
+	Continent*					curContinent;
+	vector<string>				curQuizList;
+	int							curQuizListIdx;
+	
+	bool						usingPartialList;
+	vector<string>				curPartialList;
 }; //end class State
 
 #endif

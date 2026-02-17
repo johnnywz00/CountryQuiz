@@ -87,9 +87,19 @@ void State::onMouseDown (int x, int y)
 	if (curMode == learn) {
 		for (auto& cty : countries) {
 			if (cty.checkContainsClick(x, y, zimg)) {
-				soundMap[cty.name].play();
-				ctyNameTxt.setString(fmtForDisplay(cty.name));
-				break;
+				
+				/* Quick-and-dirty add-in to help kids learn
+				 * little chunks at a time
+				 */
+				if (isShiftPressed()) {
+					curPartialList.push_back(cty.name);
+				}
+				
+				else {
+					soundMap[cty.name].play();
+					ctyNameTxt.setString(fmtForDisplay(cty.name));
+					break;
+				}
 			}
 		}
 	}
@@ -146,7 +156,7 @@ void State::onMouseDown (int x, int y)
 	}
 	else if (curMode == quizEnded) {
 		curMode = learn;
-		mapSprite.setTexture(gTexture(curContinent->mapKey));
+		refreshMapImage();
 	}
 }
 
@@ -221,7 +231,20 @@ void State::draw ()
 	}
 	
 	else {
-		rwin->draw(ctyNameTxt);
+		/* Quick patch for helping kids learn small chunks */
+		if (isShiftPressed()) {
+			auto old = ctyNameTxt.getString();
+			string tmpStr;
+			for (auto& str : curPartialList) {
+				tmpStr += str + "\n";
+			}
+			ctyNameTxt.setString(tmpStr);
+			rwin->draw(ctyNameTxt);
+			ctyNameTxt.setString(old);
+		}
+		/* Normal flow */
+		else
+			rwin->draw(ctyNameTxt);
 		rwin->draw(instrucsTxt);
 	}
 }
@@ -237,10 +260,8 @@ void State::loadContinent (Continent& cont)
 	ctyNameTxt.setString("");
 	ctyNameTxt.setPosition(cont.countryDisplayPos);
 	curContinent = &cont;
-	curMapTx = gTexture(cont.mapKey);
-	zimg = curMapTx.copyToImage();
-	mapSprite.setTexture(curMapTx);
-	// Don't center the sprite because click coordinates
+	refreshMapImage();
+	// Don't center the map sprite because click coordinates
 	//  are hardcoded from top-left corner (0, 0) of map image
 		
 	countries.clear();
@@ -292,6 +313,8 @@ void State::loadContinent (Continent& cont)
 	}
 	countryFile.close();
 	cont.soundsLoaded = true;
+	
+	curPartialList.clear();
 }
 
 void State::launchQuiz ()
@@ -302,6 +325,7 @@ void State::launchQuiz ()
 	 * green or red depending on whether answered
 	 * correctly.
 	 */
+	refreshMapImage();
 	for (auto& cty : countries) {
 		for (auto& xy : cty.coords) {
 			Color alphaColor = zimg.getPixel(vecU(xy.x, xy.y));
@@ -311,13 +335,10 @@ void State::launchQuiz ()
 	}
 	curMapTx.update(zimg);
 	
-	/* Load the names of the current continent's countries */
-	curQuizList.clear();
-	for (auto& cty : countries)
-		curQuizList.push_back(cty.name);
+	formListForQuiz();
 	
 	/* Shuffle the countries for the quiz */
-	for (size_t i = countries.size() - 1; i > 0; --i) {
+	for (size_t i = curQuizList.size() - 1; i > 0; --i) {
 		int j = rand() % (i + 1);
 		std::swap(curQuizList[i], curQuizList[j]);
 	}
@@ -326,6 +347,27 @@ void State::launchQuiz ()
 	/* Start quizzing */
 	soundMap[curQuizList[0]].play();
 	ctyNameTxt.setString(fmtForDisplay(curQuizList[0]));
+}
+
+void State::refreshMapImage ()
+{
+	curMapTx = gTexture(curContinent->mapKey);
+	zimg = curMapTx.copyToImage();
+	mapSprite.setTexture(curMapTx);
+}
+
+void State::formListForQuiz ()
+{
+	curQuizList.clear();
+	
+	if (isShiftPressed() && curPartialList.size() > 0) {
+		curQuizList = curPartialList;
+	}
+	else {
+		/* Load the names of the all current continent's countries */
+		for (auto& cty : countries)
+			curQuizList.push_back(cty.name);
+	}
 }
 
 string State::fmtForDisplay (string& str)
