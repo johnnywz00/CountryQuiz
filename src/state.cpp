@@ -89,10 +89,13 @@ void State::onMouseDown (int x, int y)
 			if (cty.checkContainsClick(x, y, zimg)) {
 				
 				/* Quick-and-dirty add-in to help kids learn
-				 * little chunks at a time
+				 * little chunks at a time. Add a shift-clicked
+				 * country to the targeted group if it's not
+				 * already in the list.
 				 */
 				if (isShiftPressed()) {
-					curPartialList.push_back(cty.name);
+					if (indexOf(curPartialList, cty.name) == -1)
+						curPartialList.push_back(cty.name);
 				}
 				
 				else {
