@@ -2,7 +2,7 @@
 
 ## C++/SFML geography learn & quiz program
 
-<img width="1728" height="1117" alt="Screenshot 2026-02-12 at 5 26 56 PM" src="https://github.com/user-attachments/assets/bb7b8bc2-a153-477a-a611-321c547a468c" />
+<img width="1728" height="1117" alt="Screenshot 2026-02-20 at 2 17 12 PM" src="https://github.com/user-attachments/assets/9f2f20be-75ee-4dea-84be-4371a2612ad7" />
 
 ### ABOUT THE PROJECT
 This program is one of very few projects which I undertook more for the use of the end product than for the challenge of coding it (I wanted my children to have a geography learning game.)
