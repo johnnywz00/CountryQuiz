@@ -18,7 +18,7 @@ Anyway, I wrote some temporary code just to transform the downloaded Internet ma
 With that, when the player clicked anywhere on screen, a "fill bucket" algorithm would start at the click point. If, traveling one by one to neighboring pixels of the exact same color (without changing the color at this point), the algorithm reached a pixel that matched an anchor point recorded in the text file, the program would know that the click had indeed occurred in the bounds of the country associated with that anchor point. The anchor points could also be used to start an actual paint bucket algorithm to change their color to green or red based on whether answered correctly in the quiz.  
 </details>  
 
-In most of my games all the graphics are created by me, some programmatically and some as pixel art. Here, as mentioned, the initial map images were scavenged, albeit significantly altered by my code. The majority of sound effects that I use are from the public domain. 
+In most of my games all the graphics are created by me, some programmatically and some as pixel art. Here, as mentioned, the initial map images were scavenged, albeit significantly altered by my code. It's me pronouncing the country names here, with a couple other sound effects that are from the public domain. 
 
 ### FILE DESCRIPTIONS
 * **sfmlApp:**  Implements `main()` and the abstract app
