@@ -294,7 +294,8 @@ void State::loadContinent (Continent& cont)
 			c = &c_;
 			if (!cont.soundsLoaded) {
 				SoundBuffer sb;
-				string filePath = (Resources::executingDir() / "resources" / "sounds" / cont.soundsFolder / (token + ".wav")).string();
+				string ext = cont.name == "europe" ? ".mp3" : ".wav";
+				string filePath = (Resources::executingDir() / "resources" / "sounds" / cont.soundsFolder / (token + ext)).string();
 				if (!sb.loadFromFile(filePath))
 					cerr << "Couldn't load sound file " << filePath << endl;
 				else {

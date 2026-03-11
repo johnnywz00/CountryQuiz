@@ -11,7 +11,8 @@ usa.png 		usaMap
 @fonts
 Monaco.ttf			debug
 DSHolzschrift.otf		countryName
-PilsenPlakat.otf		instrucs
+#PilsenPlakat.otf		instrucs
+"Candara Bold.ttf"		instrucs
 
 @sounds
 magicmallet.mp3		wrongChoice
