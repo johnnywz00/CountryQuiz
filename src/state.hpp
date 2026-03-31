@@ -1,9 +1,16 @@
 /*
  TO DO:
  
+ ! got a spinning beach ball when clicking rapidly twice in vicinity of Andorra
+ - voice record capitals to pair with the countries
+ -(lowprio): underlying rt uses solid color for algs, but a copy rt mottles
+ and blurs the color for visual presentation
+ -(low): store pixelid->countryname per continent load so mousemove can immediately know what country it's over with vector/stride or [x][y] lookup
  -convert click coordinates to fit other screen sizes
  -menu/splash?
  -make ctyNameTxt appear by the actual country (in Learn)?
+	make it a hover function that displays txt relative to cursor
+	(but lots of flood alg if run on every mousemove)
  -redo some voice recording
  -sound/anim/stats when quiz done
  -add miniscule countries in more challenging mode?
@@ -92,9 +99,11 @@ private:
 	map<string, Sound> 			soundMap;
 
 	Sprite						mapSprite;
+	RoundedRectangle			quizResultsRect;
 	Text    			 		mouseTxt
 								, ctyNameTxt
 								, instrucsTxt
+								, quizResultsTxt
 	;
 	Textbox						newCountryTbox;
 	Textbox*					activeTbox = nullptr;
@@ -106,6 +115,7 @@ private:
 	ZImage						zimg;
 
 	Continent*					curContinent;
+	unique_ptr<QuizResults>		curQuizResults;
 	vector<string>				curQuizList;
 	int							curQuizListIdx;
 	

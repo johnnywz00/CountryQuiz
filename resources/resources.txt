@@ -13,6 +13,7 @@ Monaco.ttf			debug
 DSHolzschrift.otf		countryName
 #PilsenPlakat.otf		instrucs
 "Candara Bold.ttf"		instrucs
+SolidOoky.otf			quizResults
 
 @sounds
 magicmallet.mp3		wrongChoice

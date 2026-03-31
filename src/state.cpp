@@ -27,6 +27,19 @@ void State::onCreate ()
 	ctyNameTxt.setOutlineThickness(1.5);
 	ctyNameTxt.setOutlineColor(withAlpha(countryNameColor, 100));
 	
+	Color accentColor = withAlpha(Color::White, 235);
+	quizResultsRect.setSize({820, 400});
+	quizResultsRect.setOutlineThickness(15);
+	quizResultsRect.setRadius(35);
+	centerOrigin(quizResultsRect);
+	quizResultsRect.setPosition(rwin->getView().getCenter());
+	quizResultsRect.setOutlineColor(accentColor);
+	
+	quizResultsTxt = Text("", gFont("quizResults"), 248);
+	quizResultsTxt.setPosition(rwin->getView().getCenter() + vecF(0, -50));
+	quizResultsTxt.setFillColor(accentColor);
+	
+	
 	/* Show continent selection keys */
 	instrucsTxt = Text(instrucsStr, gFont("instrucs"), 18);
 	instrucsTxt.setPosition({15, 5});
@@ -118,6 +131,7 @@ void State::onMouseDown (int x, int y)
 					for (auto& xy : cty.coords) {
 						zimg.fillInWithColor(vecU(xy), correctColor);
 					}
+					++curQuizResults->correct;
 					gSound("rightChoice").play();
 				}
 				/* Incorrect */
@@ -129,6 +143,7 @@ void State::onMouseDown (int x, int y)
 							zimg.fillInWithColor(vecU(xy), incorrectColor);
 						}
 					}
+					++curQuizResults->incorrect;
 					gSound("wrongChoice").play();
 				}
 				curMapTx.update(zimg);
@@ -137,7 +152,11 @@ void State::onMouseDown (int x, int y)
 				
 				/* Reached end of quiz list */
 				if (curQuizListIdx >= curQuizList.size()) {
-					// display results
+					curQuizResults->show = true;
+					float pct = curQuizResults->percent();
+					quizResultsTxt.setString(toString(int(pct * 100.f)) + " %");
+					centerOrigin(quizResultsTxt);
+					quizResultsRect.setFillColor(colorMorph(incorrectColor, correctColor, pct));
 					// play finishing sound
 					curMode = quizEnded;
 					ctyNameTxt.setString("");
@@ -159,6 +178,7 @@ void State::onMouseDown (int x, int y)
 	}
 	else if (curMode == quizEnded) {
 		curMode = learn;
+		curQuizResults = nullptr;
 		refreshMapImage();
 	}
 }
@@ -249,6 +269,10 @@ void State::draw ()
 		else
 			rwin->draw(ctyNameTxt);
 		rwin->draw(instrucsTxt);
+		if (curQuizResults && curQuizResults->show) {
+			rwin->draw(quizResultsRect);
+			rwin->draw(quizResultsTxt);
+		}
 	}
 }
 
@@ -319,6 +343,7 @@ void State::loadContinent (Continent& cont)
 	cont.soundsLoaded = true;
 	
 	curPartialList.clear();
+	curQuizResults = nullptr;
 }
 
 void State::launchQuiz ()
@@ -347,6 +372,7 @@ void State::launchQuiz ()
 		std::swap(curQuizList[i], curQuizList[j]);
 	}
 	curQuizListIdx = 0;
+	curQuizResults = make_unique<QuizResults>(curQuizList.size());
 	
 	/* Start quizzing */
 	soundMap[curQuizList[0]].play();

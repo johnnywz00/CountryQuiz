@@ -46,6 +46,20 @@ struct Continent
 
 
 
+struct QuizResults
+{
+	QuizResults (unsigned tot) : total(tot) { }
+	
+	float percent ()
+	{
+		return float(correct) / float(correct + incorrect);
+	}
+	
+	unsigned 	correct;
+	unsigned 	incorrect;
+	unsigned 	total;
+	bool		show = false;
+};
 //struct Mode
 //{
 //	Mode() {}
